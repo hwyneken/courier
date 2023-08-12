@@ -234,7 +234,8 @@ MAIL = function(XMat,yVec,
   }
 
 
-
+  dataList <- list(xExp = xExp,xCon = xCon,
+                   yExp = yExp,yCon = yCon)
 
   resList <- list(tempCI = mailOutputs$tempCI,
                   selectedSet = selectedSet,
@@ -246,7 +247,9 @@ MAIL = function(XMat,yVec,
                   origSelectedSet = origSelectedSet,
                   reRunSOIL_SmallestModel = reRunSOIL_SmallestModel,
                   origCandMat = origCandMat,
-                  origSOILRes = soilRes)
+                  origSOILRes = soilRes,
+                  dataList = dataList,
+                  selectedSetSorted = selectedSetSorted)
 
   return(resList)
 
