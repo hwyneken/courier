@@ -1,5 +1,5 @@
 #' \code{Lasso_CV_Sigma2Est} estimates the error variance in a high dimensional problem
-#' using the proposed method from \insertcite{reid2016study}{MAIL}.
+#' using the proposed method from \insertCite{reid2016study}{MAIL}.
 #' The best method in their simulation uses the RSS from the 
 #' LASSO coefficients, using 5 or 10-fold CV.
 #' 
