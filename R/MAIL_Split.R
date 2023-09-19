@@ -58,5 +58,8 @@ MAIL_Split = function(XMat,yVec) {
                  sigma2EstFunc = "LPM_AIC_CV_50Split",
                  trueSD = NULL,
                  verbose=FALSE)
+  rownames(resList$tempCI) <- colnames(XMat)[resList$selectedSet]
+  colnames(resList$tempCI) <- c("95% CI: Lower Bound",
+                                "95% CI: Upper Bound")
   return(resList)
 }
