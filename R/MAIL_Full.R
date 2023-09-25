@@ -76,7 +76,7 @@ MAIL_Full = function(XMat,yVec) {
                  firstSOILPsi = 0.5,
                  smallestModelPsi = 0,
                  numSelectionIter = 1,
-                 sigma2EstFunc = "Lasso_CV_Sigma2Est",
+                 sigma2EstFunc = "LPM_AIC_CV_50Split",
                  trueSD = NULL,
                  verbose=FALSE)
   ##
