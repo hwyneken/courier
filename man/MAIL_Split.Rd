@@ -12,7 +12,17 @@ MAIL_Split(XMat, yVec)
 \item{yVec}{a n by 1 numeric vector}
 }
 \value{
-resList a list
+resList a list with the following elements
+
+\itemize{
+  \item selectedSet: The indices of the selected variables (out of {1,...,p}).
+  \item CIMatrix: A matrix (numSelected by 2) - each row corresponds to the 95% confidence interval for the full target of each selected variable (in the same order as selected set).
+  \item margVar: A vector (length numSelected) of the sampling variances.
+  \item betaHat: The vector (length p) of model-averaged estimates. Unselected variables have an estimated beta of zero.
+  \item estSigma2: The estimated residual variance.
+  \item candMat: An indicator matrix of candidate models (numModels by p).
+  \item origSelectedSet: The variables selected the initial sweep by SOIL.
+}
 }
 \description{
 \code{MAIL_Split} runs MAIL with data splitting

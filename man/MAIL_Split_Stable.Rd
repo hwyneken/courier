@@ -17,7 +17,7 @@ resList a list with the following elements:
 
 \itemize{
   \item selectedSet: The indices of the selected variables (out of {1,...,p}).
-  \item tempCI: A matrix (numSelected by 2) - each row corresponds to the 95% confidence interval for the full target of each selected variable (in the same order as selected set).
+  \item CIMatrix: A matrix (numSelected by 2) - each row corresponds to the 95% confidence interval for the full target of each selected variable (in the same order as selected set).
   \item margVar: A vector (length numSelected) of the sampling variances.
   \item betaHat: The vector (length p) of model-averaged estimates. Unselected variables have an estimated beta of zero.
   \item estSigma2: The estimated residual variance.

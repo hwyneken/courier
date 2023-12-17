@@ -78,6 +78,7 @@ MAIL = function(XMat,yVec,
     print("Step 2: Run First Model Average")
   }
 
+  numModels = min(c(floor(dim(xExp)[1]/2),floor(dim(xExp)[2]/2)))
   allSOILScores = rep(0,times=p) ##
   for (i in 1:numSelectionIter) {
     if (verbose == TRUE) {
@@ -85,7 +86,7 @@ MAIL = function(XMat,yVec,
     }
 
     if (firstSOILWeightType != "ARM") {
-      soilRes = SOIL(x=xExp,y=yExp,
+      soilRes = SOIL(x=xExp,y=yExp,n_bound = numModels,
                      weight_type=firstSOILWeightType,
                      psi=firstSOILPsi,family="gaussian",method="union")
     }
@@ -104,7 +105,6 @@ MAIL = function(XMat,yVec,
     print("Step 3: Select Variables for the Nested Candidate Set")
   }
 
-  numModels = min(c(floor(dim(xExp)[1]/2),floor(dim(xExp)[2]/2)))
   soilCutoff = sort(allSOILScores,decreasing=TRUE)[numModels]
   selectedSet = which(allSOILScores >= soilCutoff)
 
@@ -237,7 +237,7 @@ MAIL = function(XMat,yVec,
   dataList <- list(xExp = xExp,xCon = xCon,
                    yExp = yExp,yCon = yCon)
 
-  resList <- list(tempCI = mailOutputs$tempCI,
+  resList <- list(CIMatrix = mailOutputs$tempCI,
                   selectedSet = selectedSet,
                   margVar = mailOutputs$margVar,
                   betaHat = mailOutputs$betaHatMA,
