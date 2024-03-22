@@ -1,11 +1,13 @@
-Package: MAIL
+Package: courier
 Type: Package
 Title: Model-Averaged Inferential Learning
-Version: 0.1.1
-Author: Henry Wyneken
+Version: 0.1.2
+Author: Henry Wyneken, Yuhong Yang
 Maintainer: Henry Wyneken <hwyneken@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Contains functions for the MAIL (Model-Averaged Inferential Learning) algorithm.
+    The functions MAIL_Full and MAIL_Split are used in our publication.
+    The MAIL function implements the general algorithm, with many options for tuning the hyperpameters.
+    Other helper functions are included.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
