@@ -78,8 +78,17 @@ MAIL = function(XMat,yVec,
     print("Step 2: Run First Model Average")
   }
 
-  numModels = min(c(floor(dim(xExp)[1]/2),floor(dim(xExp)[2]/2)))
-  allSOILScores = rep(0,times=p) ##
+  # We made this change because MAIL was only selecting 20 or so variables in the WEV
+  #   example, even when the sample size was very large
+  if (pExp >= NExp) {
+    numModels <- min(c(floor(NExp/2),
+                      floor(pExp/2)))
+  }
+  else {
+    numModels <- pExp
+  }
+  
+  allSOILScores <- rep(0,times=p) ##
   for (i in 1:numSelectionIter) {
     if (verbose == TRUE) {
       print(sprintf("\tStep 2: Iteration %d",i))
