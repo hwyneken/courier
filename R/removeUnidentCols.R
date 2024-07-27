@@ -11,15 +11,17 @@ removeUnidentCols <- function(selectedSet,xCon) {
   selectedSet <- setdiff(selectedSet,selectedSet[whichHaveZeroSD]) # remove these
   
   ## now remove columns that are highly unbalanced
-  mostCommonValueFraction <- function(x) {
-    valCounts <- table(x)
-    mostCommonInd <- which.max(valCounts)
-    mostCommonFraction <- valCounts[mostCommonInd] / sum(valCounts,na.rm=TRUE)
-    return(mostCommonFraction)
-  }
-  mostCommonFractionInCon <- apply(xCon[,selectedSet],2,mostCommonValueFraction)
-  whichAreOver80 <- which(mostCommonFractionInCon >= 0.8)
-  selectedSet <- setdiff(selectedSet,selectedSet[whichAreOver80])
+  # why do we need this again
+  # don't forget to add mcvThresh back in as an argument
+  # mostCommonValueFraction <- function(x) {
+  #   valCounts <- table(x)
+  #   mostCommonInd <- which.max(valCounts)
+  #   mostCommonFraction <- valCounts[mostCommonInd] / sum(valCounts,na.rm=TRUE)
+  #   return(mostCommonFraction)
+  # }
+  # mostCommonFractionInCon <- apply(xCon[,selectedSet],2,mostCommonValueFraction)
+  # whichAreOverMCVThresh <- which(mostCommonFractionInCon >= mcvThresh)
+  # selectedSet <- setdiff(selectedSet,selectedSet[whichAreOverMCVThresh])
   
   # now check for dependent columns
   fullSelectedX <- xCon[,selectedSet] # we just need to make sure that we can fit models on the confirmation set
