@@ -80,7 +80,7 @@ MAIL = function(XMat,yVec,
 
   # We made this change because MAIL was only selecting 20 or so variables in the WEV
   #   example, even when the sample size was very large
-  if (pExp >= NExp) {
+  if (pExp >= (1/2)*NExp) {
     numModels <- min(c(floor(NExp/2),
                       floor(pExp/2)))
   }
