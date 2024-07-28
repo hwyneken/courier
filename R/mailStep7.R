@@ -22,7 +22,9 @@ mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,estSigma2) {
     colnames(tempX) = paste("V",which(candMat[i,] != 0),sep="")
     tempDF = data.frame(y=yCon)
     tempDF = cbind(tempDF,tempX)
-    tempM = lm(y~.,data=tempDF,tol=1e-16) # set tolerance to all for very dependent columns
+    
+    # remove intercept - change made 7/28/2024
+    tempM = lm(y~ 0 + .,data=tempDF,tol=1e-16) # set tolerance to all for very dependent columns
 
     coefList[[i]] <- coef(summary(tempM))
     covMatList[[i]] <- summary(tempM)$cov.unscaled
