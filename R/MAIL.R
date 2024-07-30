@@ -89,25 +89,46 @@ MAIL = function(XMat,yVec,
   }
   
   allSOILScores <- rep(0,times=p) ##
-  for (i in 1:numSelectionIter) {
-    if (verbose == TRUE) {
-      print(sprintf("\tStep 2: Iteration %d",i))
+  
+  if (numSelectionIter > 1) {
+    for (i in 1:numSelectionIter) {
+      if (verbose == TRUE) {
+        print(sprintf("\tStep 2: Iteration %d",i))
+      }
+      
+      tempInds <- sample(1:NExp,size=NExp)
+      tempXExp <- xExp[tempInds,]
+      tempYExp <- yExp[tempInds]
+      if (firstSOILWeightType != "ARM") {
+        soilRes <- SOIL(x=tempXExp,y=tempYExp,n_bound = numModels,
+                        weight_type=firstSOILWeightType,
+                        psi=firstSOILPsi,family="gaussian",method="union")
+      }
+      else {
+        soilRes <- SOIL(x=tempXExp,y=tempYExp,
+                       weight_type = "ARM",
+                       psi=firstSOILPsi,family="gaussian",method="union",
+                       n_train = ceiling(NExp/2)+4)
+      }
+      allSOILScores <- allSOILScores + as.numeric(soilRes$importance)
     }
-
+    allSOILScores <- allSOILScores / numSelectionIter    
+  }
+  else {
     if (firstSOILWeightType != "ARM") {
-      soilRes = SOIL(x=xExp,y=yExp,n_bound = numModels,
+      soilRes <- SOIL(x=xExp,y=yExp,n_bound = numModels,
                      weight_type=firstSOILWeightType,
                      psi=firstSOILPsi,family="gaussian",method="union")
     }
     else {
-      soilRes = SOIL(x=xExp,y=yExp,
+      soilRes <- SOIL(x=xExp,y=yExp,
                      weight_type = "ARM",
                      psi=firstSOILPsi,family="gaussian",method="union",
                      n_train = ceiling(NExp/2)+4)
     }
-    allSOILScores = allSOILScores + as.numeric(soilRes$importance)
+    allSOILScores <- allSOILScores + as.numeric(soilRes$importance)    
   }
-  allSOILScores = allSOILScores / numSelectionIter
+
 
 
   if (verbose == TRUE) {
