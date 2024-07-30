@@ -90,6 +90,7 @@ MAIL = function(XMat,yVec,
   
   allSOILScores <- rep(0,times=p) ##
   
+  ## added bootstrap on 7/29/2024
   if (numSelectionIter > 1) {
     for (i in 1:numSelectionIter) {
       if (verbose == TRUE) {
