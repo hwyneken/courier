@@ -97,7 +97,7 @@ MAIL = function(XMat,yVec,
         print(sprintf("\tStep 2: Iteration %d",i))
       }
       
-      tempInds <- sample(1:NExp,size=NExp)
+      tempInds <- sample(1:NExp,size=NExp,replace=TRUE)
       tempXExp <- xExp[tempInds,]
       tempYExp <- yExp[tempInds]
       if (firstSOILWeightType != "ARM") {
