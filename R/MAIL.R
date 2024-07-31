@@ -93,6 +93,7 @@ MAIL = function(XMat,yVec,
   ## added bootstrap on 7/29/2024
   if (numSelectionIter > 1) {
     soilScoreMat <- matrix(NA,nrow=numSelectionIter,ncol=p)
+    soilRes <- NULL
     for (i in 1:numSelectionIter) {
       if (verbose == TRUE) {
         print(sprintf("\tStep 2: Iteration %d",i))
