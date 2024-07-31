@@ -2,7 +2,7 @@
 #'
 #' @export
 
-mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,estSigma2) {
+mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertainty,estSigma2) {
   p = dim(xCon)[2]
   numCand = dim(candMat)[1]
   #selectedSet = which(candMat[numCand,] != 0)
@@ -60,7 +60,7 @@ mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,estSigma2) {
     tempVarVec[i] <- sum(tempVarVec2,na.rm=TRUE)
   }
 
-  tempVarVec <- tempVarVec *  estSigma2
+  tempVarVec <- tempVarVec *  estSigma2 * soilUncertainty^2
 
   tempCI <- matrix(0,nrow=numSelected,ncol=2)
   tempCI[,1] <- tempCoefVec - 1.96*sqrt(tempVarVec)

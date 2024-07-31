@@ -116,7 +116,7 @@ MAIL = function(XMat,yVec,
       soilScoreMat[i,] <- as.numeric(tempSOILRes$importance)
       allSOILScores <- allSOILScores + as.numeric(tempSOILRes$importance)
     }
-    meanSOILSD_Adjust <- 1 + mean(apply(soilScoreMat,2,sd))
+    soilUncertaintyVec <- apply(soilScoreMat,2,sd)
     allSOILScores <- allSOILScores / numSelectionIter    
   }
   else {
@@ -132,7 +132,7 @@ MAIL = function(XMat,yVec,
                      psi=firstSOILPsi,family="gaussian",method="union",
                      n_train = ceiling(NExp/2)+4)
     }
-    meanSOILSD_Adjust <- 1
+    soilUncertaintyVec <- rep(1,p)
     allSOILScores <- allSOILScores + as.numeric(soilRes$importance)    
   }
 
@@ -226,7 +226,7 @@ MAIL = function(XMat,yVec,
     if (verbose == TRUE) {
       print("Step 7: Get MAIL Estimates and CI's")
     }
-    mailOutputs = mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,meanSOILSD_Adjust^2*estSigma2)
+    mailOutputs = mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertaintyVec,estSigma2)
 
   }
   else { # no variables were selected
