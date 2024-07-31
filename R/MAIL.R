@@ -92,6 +92,7 @@ MAIL = function(XMat,yVec,
   
   ## added bootstrap on 7/29/2024
   if (numSelectionIter > 1) {
+    soilScoreMat <- matrix(NA,nrow=numSelectionIter,ncol=p)
     for (i in 1:numSelectionIter) {
       if (verbose == TRUE) {
         print(sprintf("\tStep 2: Iteration %d",i))
@@ -101,21 +102,23 @@ MAIL = function(XMat,yVec,
       tempXExp <- xExp[tempInds,]
       tempYExp <- yExp[tempInds]
       if (firstSOILWeightType != "ARM") {
-        soilRes <- SOIL(x=tempXExp,y=tempYExp,n_bound = numModels,
-                        weight_type=firstSOILWeightType,
-                        psi=firstSOILPsi,family="gaussian",method="union")
+        tempSOILRes <- SOIL(x=tempXExp,y=tempYExp,n_bound = numModels,
+                            weight_type=firstSOILWeightType,
+                            psi=firstSOILPsi,family="gaussian",method="union")
       }
       else {
-        soilRes <- SOIL(x=tempXExp,y=tempYExp,
-                       weight_type = "ARM",
-                       psi=firstSOILPsi,family="gaussian",method="union",
-                       n_train = ceiling(NExp/2)+4)
+        tempSOILRes <- SOIL(x=tempXExp,y=tempYExp,
+                            weight_type = "ARM",
+                            psi=firstSOILPsi,family="gaussian",method="union",
+                            n_train = ceiling(NExp/2)+4)
       }
-      allSOILScores <- allSOILScores + as.numeric(soilRes$importance)
+      soilScoreMat[i,] <- as.numeric(tempSOILRes$importance)
+      allSOILScores <- allSOILScores + as.numeric(tempSOILRes$importance)
     }
     allSOILScores <- allSOILScores / numSelectionIter    
   }
   else {
+    soilScoreMat <- NULL
     if (firstSOILWeightType != "ARM") {
       soilRes <- SOIL(x=xExp,y=yExp,n_bound = numModels,
                      weight_type=firstSOILWeightType,
@@ -280,7 +283,9 @@ MAIL = function(XMat,yVec,
                   origCandMat = origCandMat,
                   origSOILRes = soilRes,
                   dataList = dataList,
-                  selectedSetSorted = selectedSetSorted)
+                  selectedSetSorted = selectedSetSorted,
+                  allSOILScores = allSOILScores,
+                  soilScoreMat = soilScoreMat)
 
   return(resList)
 
