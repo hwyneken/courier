@@ -116,7 +116,7 @@ MAIL = function(XMat,yVec,
       soilScoreMat[i,] <- as.numeric(tempSOILRes$importance)
       allSOILScores <- allSOILScores + as.numeric(tempSOILRes$importance)
     }
-    soilUncertaintyVec <- apply(soilScoreMat,2,sd)
+    soilUncertaintyVec <- 1 + apply(soilScoreMat,2,sd)
     allSOILScores <- allSOILScores / numSelectionIter    
   }
   else {
