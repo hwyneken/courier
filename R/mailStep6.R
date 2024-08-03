@@ -1,3 +1,8 @@
+#' mailStep6
+#' 
+#' @export
+#'
+
 mailStep6 <- function(minInd,maxInd,candMat,firstSOILWeightType,firstSOILPsi,xExp,yExp) {
   
   NExp <- dim(xExp)[1]

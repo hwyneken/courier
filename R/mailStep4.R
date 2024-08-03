@@ -1,3 +1,8 @@
+#' mailStep4
+#' 
+#' @export
+#' 
+
 mailStep4 <- function(allSOILScores,selectedSet,xExp,yExp,smallestModelWeightType,smallestModelPsi,numModels) {
   selectedSOILScores <- allSOILScores[selectedSet]
   selectedSetSorted <- selectedSet[order(selectedSOILScores,decreasing=TRUE)]

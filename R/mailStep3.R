@@ -1,3 +1,7 @@
+#' mailStep3
+#' 
+#' @export
+
 mailStep3 <- function(allSOILScores,numModels) {
   soilCutoff <- sort(allSOILScores,decreasing=TRUE)[numModels]
   selectedSet <- which(allSOILScores >= soilCutoff)

@@ -4,7 +4,15 @@
 \alias{mailStep7}
 \title{mailStep7}
 \usage{
-mailStep7(candMat, selectedSet, xCon, yCon, modelWeight, estSigma2)
+mailStep7(
+  candMat,
+  selectedSet,
+  xCon,
+  yCon,
+  modelWeight,
+  soilUncertainty,
+  estSigma2
+)
 }
 \description{
 mailStep7

@@ -37,7 +37,7 @@ The function uses the following arguments with MAIL:
   \item smallestModelWeightType = "AIC"
   \item firstSOILPsi = 0.5
   \item smallestModelPsi = 0
-  \item numSelectionIter = 100
+  \item numSelectionIter = 50
   \item sigma2EstFunc = "Nested_LPM_AIC_CV_50Split"
   \item verbose = FALSE
 }

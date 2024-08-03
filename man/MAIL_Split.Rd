@@ -36,8 +36,9 @@ The function uses the following arguments with MAIL:
   \item smallestModelWeightType = "AIC"
   \item firstSOILPsi = 0.5
   \item smallestModelPsi = 0
-  sigma2EstFunc = "LPM_AIC_CV_50Split"
-  verbose = FALSE
+  \item numSelectionIter = 10
+  \item sigma2EstFunc = "LPM_AIC_CV_50Split"
+  \item verbose = FALSE
 }
 }
 \examples{
