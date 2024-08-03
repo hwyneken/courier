@@ -26,6 +26,11 @@ mailStep4 <- function(allSOILScores,selectedSet,xExp,yExp,smallestModelWeightTyp
   maxInd <- dim(candMat)[1]
   candMat <- candMat[minInd:maxInd,]  
   
+  if (minInd == maxInd) {
+    candMat <- matrix(candMat,nrow=1)
+    modelWeight <- 1
+  }
+  
   resList <- list(origCandMat = origCandMat,
                   candMat = candMat,
                   minInd = minInd,
