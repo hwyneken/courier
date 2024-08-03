@@ -115,6 +115,7 @@ MAIL = function(XMat,yVec,
     minInd <- mailStep4Res$minInd
     maxInd <- mailStep4Res$maxInd
     reRunSOIL_SmallestModel <- mailStep4Res$reRunSOIL_SmallestModel
+    selectedSetSorted <- mailStep4Res$selectedSetSorted
 
     if (verbose == TRUE) {
       print("Step 5: Estimate sigma^2")

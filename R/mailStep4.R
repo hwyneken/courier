@@ -35,6 +35,7 @@ mailStep4 <- function(allSOILScores,selectedSet,xExp,yExp,smallestModelWeightTyp
                   candMat = candMat,
                   minInd = minInd,
                   maxInd = maxInd,
-                  reRunSOIL_SmallestModel = reRunSOIL_SmallestModel)
+                  reRunSOIL_SmallestModel = reRunSOIL_SmallestModel,
+                  selectedSetSorted = selectedSetSorted)
   return(resList)
 }
