@@ -3,11 +3,12 @@
 #' @export
 
 mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertainty,estSigma2) {
-  p = dim(xCon)[2]
-  numCand = dim(candMat)[1]
+  soilUncertainty <- soilUncertainty[selectedSet]
+  p <- dim(xCon)[2]
+  numCand <- dim(candMat)[1]
   #selectedSet = which(candMat[numCand,] != 0)
-  numModels = numCand
-  numSelected = length(selectedSet)
+  numModels <- numCand
+  numSelected <- length(selectedSet)
 
   tempCoefVec <- rep(0,numSelected)
   tempVarVec <- rep(0,numSelected)
@@ -19,12 +20,12 @@ mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertainty,
     if (sum(candMat[i,] != 0,na.rm=TRUE) == 1) {
       tempX <- matrix(tempX,ncol=1)
     }
-    colnames(tempX) = paste("V",which(candMat[i,] != 0),sep="")
-    tempDF = data.frame(y=yCon)
-    tempDF = cbind(tempDF,tempX)
+    colnames(tempX) <- paste("V",which(candMat[i,] != 0),sep="")
+    tempDF <- data.frame(y=yCon)
+    tempDF <- cbind(tempDF,tempX)
     
     # remove intercept - change made 7/28/2024
-    tempM = lm(y~ 0 + .,data=tempDF,tol=1e-16) # set tolerance to all for very dependent columns
+    tempM <- lm(y~ 0 + .,data=tempDF,tol=1e-16) # set tolerance to all for very dependent columns
 
     coefList[[i]] <- coef(summary(tempM))
     covMatList[[i]] <- summary(tempM)$cov.unscaled
@@ -32,25 +33,25 @@ mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertainty,
 
 
   for (i in 1:numSelected) {
-    tempVar = selectedSet[i]
-    tempModelInds = which(candMat[,tempVar] != 0)
-    smallestModel = min(tempModelInds)
-    tempModelWeight = modelWeight[tempModelInds] / sum(modelWeight[tempModelInds],na.rm=TRUE)
-    numTempInds = length(tempModelInds)
+    tempVar <- selectedSet[i]
+    tempModelInds <- which(candMat[,tempVar] != 0)
+    smallestModel <- min(tempModelInds)
+    tempModelWeight <- modelWeight[tempModelInds] / sum(modelWeight[tempModelInds],na.rm=TRUE)
+    numTempInds <- length(tempModelInds)
 
     tempCoefVec2 <- rep(0,times=numTempInds)
     tempVarVec2 <- rep(0,times=numTempInds)
     for (j in 1:numTempInds) {
-      tempInd = tempModelInds[j]
+      tempInd <- tempModelInds[j]
 
       if (!(paste0("V",tempVar) %in% rownames(coefList[[tempInd]]))) {
         browser()
       }
       tempCoefVec2[j] <- tempModelWeight[j]*coefList[[tempInd]][paste0("V",tempVar),1]
 
-      tempWeight2 = ifelse(tempInd == numCand,
-                           tempModelWeight[j]^2,
-                           tempModelWeight[j]^2 + 2*tempModelWeight[j]*sum(tempModelWeight[(j+1):numTempInds],na.rm=TRUE))
+      tempWeight2 <- ifelse(tempInd == numCand,
+                            tempModelWeight[j]^2,
+                            tempModelWeight[j]^2 + 2*tempModelWeight[j]*sum(tempModelWeight[(j+1):numTempInds],na.rm=TRUE))
 
       tempCovMat <- covMatList[[tempInd]]
       tempVarVec2[j] <- tempWeight2 * diag(tempCovMat)[paste("V",tempVar,sep="")]
@@ -72,4 +73,5 @@ mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertainty,
   resList = list(betaHatMA = betaHatMA,
                  tempCI = tempCI,
                  margVar = tempVarVec)
+  return(resList)
 }
