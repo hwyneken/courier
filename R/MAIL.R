@@ -98,7 +98,7 @@ MAIL = function(XMat,yVec,
   if (verbose == TRUE) {
     print("Step 3: Select Variables for the Nested Candidate Set")
   }
-  mailStep3Res <- mailStep3(allSOILScores,numModels)
+  mailStep3Res <- mailStep3(allSOILScores,numModels,xCon)
   selectedSet <- mailStep3Res$selectedSet
   numSelected <- mailStep3Res$numSelected
 
