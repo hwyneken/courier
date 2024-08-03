@@ -46,138 +46,75 @@ MAIL = function(XMat,yVec,
   p = dim(XMat)[2]
 
   if (splitOption == "Split") {
-    expInds = sample(1:N,size=floor(N/2),replace=FALSE)
+    expInds <- sample(1:N,size=floor(N/2),replace=FALSE)
 
-    xExp = XMat[expInds,]
-    xCon = XMat[-1*expInds,]
+    xExp <- XMat[expInds,]
+    xCon <- XMat[-1*expInds,]
 
-    yExp = yVec[expInds]
-    yCon = yVec[-1*expInds]
+    yExp <- yVec[expInds]
+    yCon <- yVec[-1*expInds]
 
-    NExp = dim(xExp)[1]
-    pExp = dim(xExp)[2]
+    NExp <- dim(xExp)[1]
+    pExp <- dim(xExp)[2]
 
-    NCon = dim(xCon)[1]
-    pCon = dim(xCon)[2]
+    NCon <- dim(xCon)[1]
+    pCon <- dim(xCon)[2]
   }
   else {
-    xExp = XMat
-    xCon = XMat
+    xExp <- XMat
+    xCon <- XMat
 
-    yExp = yVec
-    yCon = yVec
+    yExp <- yVec
+    yCon <- yVec
 
-    NExp = dim(xExp)[1]
-    pExp = dim(xExp)[2]
+    NExp <- dim(xExp)[1]
+    pExp <- dim(xExp)[2]
 
-    NCon = dim(xCon)[1]
-    pCon = dim(xCon)[2]
+    NCon <- dim(xCon)[1]
+    pCon <- dim(xCon)[2]
+  }
+  
+  # We made this change because MAIL was only selecting 20 or so variables in the WEV
+  #   example, even when the sample size was very large
+  if (pExp >= (1/2)*NExp) {
+    numModels <- min(c(floor(NExp/2),
+                       floor(pExp/2)))
+  }
+  else {
+    numModels <- pExp
   }
 
   if (verbose == TRUE) {
     print("Step 2: Run First Model Average")
   }
 
-  # We made this change because MAIL was only selecting 20 or so variables in the WEV
-  #   example, even when the sample size was very large
-  if (pExp >= (1/2)*NExp) {
-    numModels <- min(c(floor(NExp/2),
-                      floor(pExp/2)))
-  }
-  else {
-    numModels <- pExp
-  }
+  mailStep2Res <- mailStep2(numSelectionIter,numModels,xExp,yExp,firstSOILWeightType,firstSOILPsi,verbose=FALSE)
+  allSOILScores <- mailStep2Res$allSOILScores
+  soilUncertaintyVec <- mailStep2$soilUncertaintyVec
   
-  allSOILScores <- rep(0,times=p) ##
-  
-  ## added bootstrap on 7/29/2024
-  if (numSelectionIter > 1) {
-    soilScoreMat <- matrix(NA,nrow=numSelectionIter,ncol=p)
-    soilRes <- NULL
-    for (i in 1:numSelectionIter) {
-      if (verbose == TRUE) {
-        print(sprintf("\tStep 2: Iteration %d",i))
-      }
-      
-      tempInds <- sample(1:NExp,size=NExp,replace=TRUE)
-      tempXExp <- xExp[tempInds,]
-      tempYExp <- yExp[tempInds]
-      if (firstSOILWeightType != "ARM") {
-        tempSOILRes <- SOIL(x=tempXExp,y=tempYExp,n_bound = numModels,
-                            weight_type=firstSOILWeightType,
-                            psi=firstSOILPsi,family="gaussian",method="union")
-      }
-      else {
-        tempSOILRes <- SOIL(x=tempXExp,y=tempYExp,
-                            weight_type = "ARM",
-                            psi=firstSOILPsi,family="gaussian",method="union",
-                            n_train = ceiling(NExp/2)+4)
-      }
-      soilScoreMat[i,] <- as.numeric(tempSOILRes$importance)
-      allSOILScores <- allSOILScores + as.numeric(tempSOILRes$importance)
-    }
-    soilUncertaintyVec <- 1 + apply(soilScoreMat,2,sd)
-    allSOILScores <- allSOILScores / numSelectionIter    
-  }
-  else {
-    soilScoreMat <- NULL
-    if (firstSOILWeightType != "ARM") {
-      soilRes <- SOIL(x=xExp,y=yExp,n_bound = numModels,
-                     weight_type=firstSOILWeightType,
-                     psi=firstSOILPsi,family="gaussian",method="union")
-    }
-    else {
-      soilRes <- SOIL(x=xExp,y=yExp,
-                     weight_type = "ARM",
-                     psi=firstSOILPsi,family="gaussian",method="union",
-                     n_train = ceiling(NExp/2)+4)
-    }
-    soilUncertaintyVec <- rep(1,p)
-    allSOILScores <- allSOILScores + as.numeric(soilRes$importance)    
-  }
 
 
 
   if (verbose == TRUE) {
     print("Step 3: Select Variables for the Nested Candidate Set")
   }
-
-  soilCutoff = sort(allSOILScores,decreasing=TRUE)[numModels]
-  selectedSet = which(allSOILScores >= soilCutoff)
-
-  if (length(selectedSet) > numModels) {
-    selectedSet = selectedSet[order(allSOILScores[selectedSet],decreasing=TRUE)[1:numModels]]
-  }
-  origSelectedSet = selectedSet
-  selectedSet = removeUnidentCols(selectedSet,xCon)
-
-  numSelected = length(selectedSet)
+  mailStep3Res <- mailStep3(allSOILScores,numModels)
+  selectedSet <- mailStep3Res$selectedSet
+  numSelected <- mailStep3Res$numSelected
 
   if (numSelected > 0) {
-    selectedSOILScores = allSOILScores[selectedSet]
-    selectedSetSorted = selectedSet[order(selectedSOILScores,decreasing=TRUE)]
-
 
     ### create the candidate matrix
     if (verbose == TRUE) {
       print("Step 4: Create Candidate Set, and Smallest Model")
     }
-
-    candMat = matrix(0,nrow=numSelected,ncol=p)
-    tempVarSet = c()
-    for (i in 1:numSelected) {
-      tempVarSet = c(tempVarSet,selectedSetSorted[i])
-      candMat[i,tempVarSet] = 1
-    }
-
-    origCandMat <- candMat
-    reRunSOIL_SmallestModel = SOIL(x=xExp,y=yExp,family="gaussian",weight_type=smallestModelWeightType,
-                                   psi=smallestModelPsi,n_train_bound = numModels + 2,
-                                   n_train = numModels + 4,
-                                   candidate_models = candMat,method="customize")
-
-    minInd = which.max(reRunSOIL_SmallestModel$weight)
-    maxInd = dim(candMat)[1]
+    
+    mailStep4Res <- mailStep4(allSOILScores,selectedSet,xExp,yExp,smallestModelWeightType,smallestModelPsi,numModels)
+    candMat <- mailStep4Res$candMat
+    origCandMat <- mailStep4Res$origCandMat
+    minInd <- mailStep4Res$minInd
+    maxInd <- mailStep4Res$maxInd
+    reRunSOIL_SmallestModel <- mailStep4Res$reRunSOIL_SmallestModel
 
     if (verbose == TRUE) {
       print("Step 5: Estimate sigma^2")
@@ -185,11 +122,11 @@ MAIL = function(XMat,yVec,
 
     ##### Variance Estimation
     if (sigma2EstFunc != "trueValue") {
-      tempSigma2Func = get(sigma2EstFunc)
-      estSigma2 = tempSigma2Func(XMat,yVec)
+      tempSigma2Func <- get(sigma2EstFunc)
+      estSigma2 <- tempSigma2Func(XMat,yVec)
     }
     else {
-      estSigma2 = trueSD^2
+      estSigma2 <- trueSD^2
     }
 
     ### now that we have an estimate of sigma^2,
@@ -200,33 +137,16 @@ MAIL = function(XMat,yVec,
     if (verbose == TRUE) {
       print("Step 6: Estimate Final Weights")
     }
+    mailStep6Res <- mailStep6(minInd,maxInd,candMat,firstSOILWeightType,firstSOILPsi,xExp,yExp)
+    modelWeight <- mailStep6Res$modelWeight
 
-
-    candMat = candMat[minInd:maxInd,]
-    if (minInd == maxInd) {
-      candMat = matrix(candMat,nrow=1)
-      modelWeight = 1
-    }
-    else {
-      if (firstSOILWeightType != "ARM") {
-        finalSOIL = SOIL(x=xExp,y=yExp,family="gaussian",weight_type=firstSOILWeightType,
-                         psi=firstSOILPsi,
-                         candidate_models = candMat,method="customize")
-      }
-      else {
-        finalSOIL = SOIL(x=xExp,y=yExp,family="gaussian",weight_type="ARM",
-                         psi=firstSOILPsi,n_train = ceiling(NExp/2)+4,
-                         candidate_models = candMat,method="customize")
-      }
-      modelWeight = finalSOIL$weight
-    }
 
 
 
     if (verbose == TRUE) {
       print("Step 7: Get MAIL Estimates and CI's")
     }
-    mailOutputs = mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertaintyVec,estSigma2)
+    mailOutputs <- mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertaintyVec,estSigma2)
 
   }
   else { # no variables were selected
@@ -281,14 +201,14 @@ MAIL = function(XMat,yVec,
                   modelWeight = modelWeight,
                   estSigma2 = estSigma2,
                   candMat = candMat,
-                  origSelectedSet = origSelectedSet,
+                  origSelectedSet = mailStep3Res$origSelectedSet,
                   reRunSOIL_SmallestModel = reRunSOIL_SmallestModel,
                   origCandMat = origCandMat,
-                  origSOILRes = soilRes,
+                  origSOILRes = mailStep2$soilRes,
                   dataList = dataList,
                   selectedSetSorted = selectedSetSorted,
                   allSOILScores = allSOILScores,
-                  soilScoreMat = soilScoreMat)
+                  soilScoreMat = mailStep2Res$soilScoreMat)
 
   return(resList)
 
