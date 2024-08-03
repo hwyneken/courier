@@ -90,7 +90,7 @@ MAIL = function(XMat,yVec,
 
   mailStep2Res <- mailStep2(numSelectionIter,numModels,xExp,yExp,firstSOILWeightType,firstSOILPsi,verbose=FALSE)
   allSOILScores <- mailStep2Res$allSOILScores
-  soilUncertaintyVec <- mailStep2$soilUncertaintyVec
+  soilUncertaintyVec <- mailStepRes2$soilUncertaintyVec
   
 
 
