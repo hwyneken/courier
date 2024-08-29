@@ -170,6 +170,7 @@ MAIL_New = function(XMat,yVec,
       print("Step 7: Get MAIL Estimates and CI's")
     }
     mailStep7_SafeFunc <- safely(mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertaintyVec,estSigma2))
+    browser()
     mailOutputs <- mailStep7_SafeFunc()$result
     if (is.null(mailOutputs)) {
       stop("Step 7 Failed - Investigate Manually")
