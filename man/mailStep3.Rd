@@ -4,7 +4,7 @@
 \alias{mailStep3}
 \title{mailStep3}
 \usage{
-mailStep3(allSOILScores, numModels)
+mailStep3(allSOILScores, numModels, xCon)
 }
 \description{
 mailStep3
