@@ -45,7 +45,7 @@ mailStep7 <- function(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertainty,
       tempInd <- tempModelInds[j]
 
       if (!(paste0("V",tempVar) %in% rownames(coefList[[tempInd]]))) {
-        browser()
+        stop("Probably unable to estimate a coefficient")
       }
       tempCoefVec2[j] <- tempModelWeight[j]*coefList[[tempInd]][paste0("V",tempVar),1]
 
