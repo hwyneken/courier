@@ -12,8 +12,6 @@ Reduce_Leverage_Step <- function(X,y,selectedSet) {
   currIter <- 0
   while(continueMarker) {
     
-    indsToKeep <- setdiff(indsToKeep)
-    
     tempX <- currentX[which(currentHatVals) < 0.95,]
     tempY <- currentY[which(currentHatVals) < 0.95]
     
