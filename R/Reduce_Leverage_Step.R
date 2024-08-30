@@ -7,13 +7,13 @@ Reduce_Leverage_Step <- function(X,y,selectedSet) {
   startM <- lm(currentY ~ 0 + currentX[,selectedSet])
   currentHatVals <- hatvalues(startM)
   
-  continueMarker <- ifelse(max(currentHatVals) < 0.95,FALSE,TRUE)
+  continueMarker <- ifelse(max(currentHatVals) < 1,FALSE,TRUE)
   
   currIter <- 0
   while(continueMarker) {
     
-    tempX <- currentX[which(currentHatVals < 0.95),]
-    tempY <- currentY[which(currentHatVals < 0.95)]
+    tempX <- currentX[which(currentHatVals < 1),]
+    tempY <- currentY[which(currentHatVals < 1)]
     
     tempM <- lm(tempY ~ 0 + tempX[,selectedSet])
     currIter <- currIter + 1
