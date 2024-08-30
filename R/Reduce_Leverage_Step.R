@@ -17,10 +17,11 @@ Reduce_Leverage_Step <- function(X,y,selectedSet) {
     
     tempM <- lm(tempY ~ 0 + tempX[,selectedSet])
     currIter <- currIter + 1
-    continueMarker <- ifelse((max(hatvalues(tempM) < 0.95) | (currIter >= MaxSteps)),FALSE,TRUE)
+    continueMarker <- ifelse((max(hatvalues(tempM) < 1) | (currIter >= MaxSteps)),FALSE,TRUE)
     
     currentX <- tempX
     currentY <- tempY
+    currentHatVals <- hatvalues(tempM)
   }
   
   if (dim(currentX)[1] <= length(selectedSet)) {
