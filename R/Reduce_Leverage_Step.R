@@ -23,7 +23,7 @@ Reduce_Leverage_Step <- function(X,y,selectedSet) {
     currentY <- tempY
   }
   
-  if (dim(currentX)[1] <= dim(currentX)[2]) {
+  if (dim(currentX)[1] <= length(selectedSet)) {
     res <- "Failure"
   }
   else {
