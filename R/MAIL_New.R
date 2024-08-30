@@ -128,7 +128,7 @@ MAIL_New = function(XMat,yVec,
     cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,selectedSet)
     cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
     
-    if ((cleanedData_Exp == "Failure") | (cleanedData_Con == "Failure")) {
+    if ((class(cleanedData_Exp) == "character") | (class(cleanedData_Con) == "character")) {
       xExp <- cleanedData_Exp$X
       yExp <- cleanedData_Exp$y
       
