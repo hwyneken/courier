@@ -126,7 +126,7 @@ MAIL_New = function(XMat,yVec,
     
     ## add function to do this 8/29/2024
     cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,selectedSet)
-    cleanedData_Exp <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
+    cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
     
     if ((cleanedData_Exp == "Failure") | (cleanedData_Con == "Failure")) {
       xExp <- cleanedData_Exp$X
