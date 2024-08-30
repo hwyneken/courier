@@ -74,6 +74,8 @@ MAIL_New = function(XMat,yVec,
     pCon <- dim(xCon)[2]
   }
   
+
+  
   # We made this change because MAIL was only selecting 20 or so variables in the WEV
   #   example, even when the sample size was very large
   if (pExp >= (1/2)*NExp) {
@@ -125,8 +127,12 @@ MAIL_New = function(XMat,yVec,
     # }
     
     ## add function to do this 8/29/2024
-    cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,selectedSet)
-    cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
+    # absCorFunc <- function(x) {abs(cor(x,yExp))}
+    # absCorValues <- apply(xExp,2,absCorFunc)
+    # absCor_CutoffPoint <- sort(absCorValues)[floor(NExp/2)]
+    
+    cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,firstSelectedSet)
+    cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,firstSelectedSet)
     
     if ((class(cleanedData_Exp) == "character") | (class(cleanedData_Con) == "character")) {
       stop("Data Leverage Cleaning Failed")

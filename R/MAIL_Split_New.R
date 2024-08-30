@@ -61,11 +61,11 @@
 MAIL_Split_New = function(XMat,yVec) {
   resList = MAIL_New(XMat,yVec,
                  splitOption="Split",
-                 firstSOILWeightType = "BIC",
+                 firstSOILWeightType = "ARM",
                  smallestModelWeightType = "AIC",
                  firstSOILPsi = 0.5,
                  smallestModelPsi = 0,
-                 numSelectionIter = 10,
+                 numSelectionIter = 1,
                  sigma2EstFunc = "LPM_AIC_CV_50Split",
                  trueSD = NULL,
                  verbose=FALSE)
