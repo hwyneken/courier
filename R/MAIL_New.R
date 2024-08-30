@@ -129,14 +129,15 @@ MAIL_New = function(XMat,yVec,
     cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
     
     if ((class(cleanedData_Exp) == "character") | (class(cleanedData_Con) == "character")) {
+      stop("Data Leverage Cleaning Failed")
+      
+    }
+    else {
       xExp <- cleanedData_Exp$X
       yExp <- cleanedData_Exp$y
       
       xCon <- cleanedData_Con$X
       yCon <- cleanedData_Con$y
-    }
-    else {
-      stop("Data Leverage Cleaning Failed")
     }
     
     ### create the candidate matrix
