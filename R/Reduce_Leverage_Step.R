@@ -12,8 +12,8 @@ Reduce_Leverage_Step <- function(X,y,selectedSet) {
   currIter <- 0
   while(continueMarker) {
     
-    tempX <- currentX[which(currentHatVals) < 0.95,]
-    tempY <- currentY[which(currentHatVals) < 0.95]
+    tempX <- currentX[which(currentHatVals < 0.95),]
+    tempY <- currentY[which(currentHatVals < 0.95)]
     
     tempM <- lm(tempY ~ 0 + tempX[,selectedSet])
     currIter <- currIter + 1
