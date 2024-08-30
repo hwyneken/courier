@@ -131,8 +131,8 @@ MAIL_New = function(XMat,yVec,
     # absCorValues <- apply(xExp,2,absCorFunc)
     # absCor_CutoffPoint <- sort(absCorValues)[floor(NExp/2)]
     
-    cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,firstSelectedSet)
-    cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,firstSelectedSet)
+    cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,selectedSet)
+    cleanedData_Con <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
     
     if ((class(cleanedData_Exp) == "character") | (class(cleanedData_Con) == "character")) {
       stop("Data Leverage Cleaning Failed")
