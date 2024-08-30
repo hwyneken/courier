@@ -105,23 +105,38 @@ MAIL_New = function(XMat,yVec,
   if (numSelected > 0) {
     
     ### filter out rows of data with very high leverage - test change 8/28/2024
-    fullX_Exp_Selected <- xExp[,selectedSet]
-    fullX_Con_Selected <- xCon[,selectedSet]
+    # fullX_Exp_Selected <- xExp[,selectedSet]
+    # fullX_Con_Selected <- xCon[,selectedSet]
+    # 
+    # fullM_Exp <- lm(yExp ~ 0 + fullX_Exp_Selected)
+    # fullM_Con <- lm(yCon ~ 0 + fullX_Con_Selected)
+    # 
+    # veryHighLeverage_Exp <- which(hatvalues(fullM_Exp) >= 0.95)
+    # veryHighLeverage_Con <- which(hatvalues(fullM_Con) >= 0.95)
+    # 
+    # if (length(veryHighLeverage_Exp) > 0) {
+    #   xExp <- xExp[-1 * veryHighLeverage_Exp,]
+    #   yExp <- yExp[-1 * veryHighLeverage_Exp]
+    # }
+    # 
+    # if (length(veryHighLeverage_Con) > 0) {
+    #   xCon <- xCon[-1 * veryHighLeverage_Con,]
+    #   yCon <- yCon[-1 * veryHighLeverage_Con]
+    # }
     
-    fullM_Exp <- lm(yExp ~ 0 + fullX_Exp_Selected)
-    fullM_Con <- lm(yCon ~ 0 + fullX_Con_Selected)
+    ## add function to do this 8/29/2024
+    cleanedData_Exp <- Reduce_Leverage_Step(xExp,yExp,selectedSet)
+    cleanedData_Exp <- Reduce_Leverage_Step(xCon,yCon,selectedSet)
     
-    veryHighLeverage_Exp <- which(hatvalues(fullM_Exp) >= 0.95)
-    veryHighLeverage_Con <- which(hatvalues(fullM_Con) >= 0.95)
-    
-    if (length(veryHighLeverage_Exp) > 0) {
-      xExp <- xExp[-1 * veryHighLeverage_Exp,]
-      yExp <- yExp[-1 * veryHighLeverage_Exp]
+    if ((cleanedData_Exp == "Failure") | (cleanedData_Con == "Failure")) {
+      xExp <- cleanedData_Exp$X
+      yExp <- cleanedData_Exp$y
+      
+      xCon <- cleanedData_Con$X
+      yCon <- cleanedData_Con$y
     }
-    
-    if (length(veryHighLeverage_Con) > 0) {
-      xCon <- xCon[-1 * veryHighLeverage_Con,]
-      yCon <- yCon[-1 * veryHighLeverage_Con]
+    else {
+      stop("Data Leverage Cleaning Failed")
     }
     
     ### create the candidate matrix
