@@ -4,28 +4,43 @@
 \alias{LPM_AIC_CV_50Split}
 \title{Recommended method for estimating the error variance}
 \usage{
-LPM_AIC_CV_50Split(XMat, yVec, numCV = 1000)
+LPM_AIC_CV_50Split(XMat, yVec, numCV = 100)
 }
 \arguments{
 \item{XMat}{a n by p numeric matrix}
 
 \item{yVec}{a n by 1 numeric vector}
 
-\item{numCV}{number of cross validation splits (default is 1000)
+\item{numCV}{number of cross validation splits (default is 100)
 
 The best way to understand how the function is to break apart the name.
 
 \itemize{
 \item LPM: Largest Plausible Model
-\item AIC: we choose the largest plausible model by minimizing AIC
-\item CV: we find the LPM on the training set, and get RMSE from the test set
-\item 50Split: we use a 50/50 split for the training/test set.
+\item AIC: we choose the largest plausible model by minimizing AIC on the exploratory set.
+\item CV: we find the LPM on the training set, and get RMSE from the confirmatory set.
+\item 50Split: we use a 50/50 split for the exploratory / confirmation sets.
 }
 
-This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{MAIL}}
+This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{MAIL}.
+
+The first step is to split the data 50/50 into an exploratory 
+   and confirmation set.
+The best model (Largest Plausible Model) is chosen by first running SOIL on the 
+ exploratory set, using AIC weights, a complexity penalty of zero and 
+ the union of penalized regression solution paths.
+Then, we pick the LPM as the model with the largest weight in the model average,
+ and extract the set of variables associated with this model.
+ 
+In the estimation step, we turn to the confirmation data, and use @param numCV
+   training / test splits.
+Each training set has 90% of the confirmatory data.
+For each training set, we fit the largest plausible model identified
+ in the previous step, and calculate MSE on the test set.
+The final output of the function is the average MSE across training / test splits.}
 }
 \description{
-\code{LPM_AIC_CV_50Split} estimates the error variance with the test set RMSE across 1000 data splits
+\code{LPM_AIC_CV_50Split} estimates the error variance with the test set RMSE across 100 data splits
 }
 \references{
 \insertRef{fan2012variance}{MAIL}
