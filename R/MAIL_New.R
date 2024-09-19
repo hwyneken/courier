@@ -180,7 +180,7 @@ MAIL_New = function(XMat,yVec,
     if (verbose == TRUE) {
       print("Step 6: Estimate Final Weights")
     }
-    mailStep6Res <- mailStep6(minInd,maxInd,candMat,firstSOILWeightType,firstSOILPsi,xExp,yExp)
+    mailStep6Res <- mailStep6(minInd,maxInd,candMat,smallestModelWeightType,smallestModelPsi,xExp,yExp)
     modelWeight <- mailStep6Res$modelWeight
     if (any(is.nan(modelWeight) | is.na(modelWeight))) {
       stop("Failed estimation of model weights")

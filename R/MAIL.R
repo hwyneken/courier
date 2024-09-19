@@ -134,6 +134,9 @@ MAIL = function(XMat,yVec,
     ### we can throw out the obviously wrong models that are too large
     ### choose the number of variables as "largestIndex" -
     ### in other words choose min AIC-corrected as the cutoff
+    
+    # maybe we should choose AIC for the final weight computation?
+    #   or aka the second SOIL weight type
 
     if (verbose == TRUE) {
       print("Step 6: Estimate Final Weights")
