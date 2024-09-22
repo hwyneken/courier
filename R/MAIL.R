@@ -90,8 +90,7 @@ MAIL = function(XMat,yVec,
 
   mailStep2Res <- mailStep2(numSelectionIter,numModels,xExp,yExp,firstSOILWeightType,firstSOILPsi,verbose=FALSE)
   allSOILScores <- mailStep2Res$allSOILScores
-  soilUncertaintyVec <- mailStep2Res$soilUncertaintyVec
-  
+
 
 
 
@@ -152,7 +151,7 @@ MAIL = function(XMat,yVec,
     if (verbose == TRUE) {
       print("Step 7: Get MAIL Estimates and CI's")
     }
-    mailOutputs <- mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertaintyVec,estSigma2)
+    mailOutputs <- mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,estSigma2)
 
   }
   else { # no variables were selected
