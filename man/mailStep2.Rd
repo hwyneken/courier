@@ -41,7 +41,7 @@ A list with the following elements:
 }
 }
 \description{
-\code{mailStep2} Runs the SOIL importance calculation for MAIL (2nd step).
+\code{mailStep2} Runs the SOIL \insertCite{ye2018sparsity}{courier} importance calculation for MAIL (2nd step).
 }
 \examples{
 

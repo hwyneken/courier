@@ -1,7 +1,7 @@
 #' mailStep2
 #' 
 #' 
-#' \code{mailStep2} Runs the SOIL importance calculation for MAIL (2nd step).
+#' \code{mailStep2} Runs the SOIL \insertCite{ye2018sparsity}{courier} importance calculation for MAIL (2nd step).
 #' 
 #' @param numSelectionIter: Expects integer >= 1. The number of bootstrapped iterations of SOIL to run. Default = 10 for most algorithms.
 #' @param maxModelSize: The maximum model size. 
