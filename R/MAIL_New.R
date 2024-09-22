@@ -92,8 +92,7 @@ MAIL_New = function(XMat,yVec,
   
   mailStep2Res <- mailStep2(numSelectionIter,numModels,xExp,yExp,firstSOILWeightType,firstSOILPsi,verbose=FALSE)
   allSOILScores <- mailStep2Res$allSOILScores
-  soilUncertaintyVec <- mailStep2Res$soilUncertaintyVec
-  
+
   
   
   
@@ -191,7 +190,7 @@ MAIL_New = function(XMat,yVec,
     if (verbose == TRUE) {
       print("Step 7: Get MAIL Estimates and CI's")
     }
-    mailStep7_SafeFunc <- safely(function() {mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,soilUncertaintyVec,estSigma2)})
+    mailStep7_SafeFunc <- safely(function() {mailStep7(candMat,selectedSet,xCon,yCon,modelWeight,estSigma2)})
     mailOutputs <- mailStep7_SafeFunc()$result
     if (is.null(mailOutputs)) {
       stop("Step 7 Failed - Investigate Manually")

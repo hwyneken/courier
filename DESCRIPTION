@@ -1,7 +1,7 @@
 Package: courier
 Type: Package
 Title: Model-Averaged Inferential Learning
-Version: 0.1.3
+Version: 0.1.4
 Author: Henry Wyneken, Yuhong Yang
 Maintainer: Henry Wyneken <hwyneken@gmail.com>
 Description: Contains functions for the MAIL (Model-Averaged Inferential Learning) algorithm.
