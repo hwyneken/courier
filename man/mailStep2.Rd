@@ -43,8 +43,8 @@ A list with the following elements:
 \description{
 \code{mailStep2} Runs the SOIL \insertCite{ye2018sparsity}{courier} importance calculation for MAIL (2nd step).
 }
-\examples{
-
+\details{
+{
 This is "Step 2" in the MAIL algorithm, and the first step with any complexity.
 The purpose of this step is to get SOIL scores for all p variables.
 The simplest version of this step is to just run SOIL once with the specificed weight type and complexity penalty (psi level).
@@ -59,7 +59,7 @@ If numSelectionIter > 1, then for each iteration, we first get bootstrapped vers
 The SOIL scores for each iteration are kept track of in soilScoreMat.
 The most important output is allSOILScores, which is the average SOIL score of each variable across all iterations.
 If numSelectionIter == 1, then we just use the original xExp and yExp.
-
+}
 }
 \references{
 \insertRef{ye2018sparsity}{courier}

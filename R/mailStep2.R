@@ -11,18 +11,8 @@
 #' @param firstSOILPsi: The complexity penalty for SOIL. This can be any real value - the suggested value is 0.5.
 #' @param verbose: If TRUE, print the iteration step (for each iteration in numSelectionIter). (default == FALSE).
 #' 
-#' @return A list with the following elements:
 #' 
-#' \itemize{
-#'   \item allSOILScores: The average SOIL importance score across numSelectionIter bootstrap iterations.
-#'   \item soilRes: If numSelectionIter == 1, then this is just the SOIL output object. If numSelectionIter > 1, this is a list of SOIL outputs for each 
-#'        bootstrap iteration. This does not affect the rest of the algorithm, it just allows for transparency and debugging.
-#'   \item soilScoreMat: A matrix of dimension numSelectionIter x p, where p is the dimension of xExp. This is full set of SOIL scores for each variable
-#'        across all iterations.
-#' }
-#' 
-#' @examples 
-#' 
+#' @details{
 #' This is "Step 2" in the MAIL algorithm, and the first step with any complexity.
 #' The purpose of this step is to get SOIL scores for all p variables.
 #' The simplest version of this step is to just run SOIL once with the specificed weight type and complexity penalty (psi level).
@@ -37,6 +27,18 @@
 #' The SOIL scores for each iteration are kept track of in soilScoreMat.
 #' The most important output is allSOILScores, which is the average SOIL score of each variable across all iterations.
 #' If numSelectionIter == 1, then we just use the original xExp and yExp.
+#' }
+#' 
+#' @return A list with the following elements:
+#' 
+#' \itemize{
+#'   \item allSOILScores: The average SOIL importance score across numSelectionIter bootstrap iterations.
+#'   \item soilRes: If numSelectionIter == 1, then this is just the SOIL output object. If numSelectionIter > 1, this is a list of SOIL outputs for each 
+#'        bootstrap iteration. This does not affect the rest of the algorithm, it just allows for transparency and debugging.
+#'   \item soilScoreMat: A matrix of dimension numSelectionIter x p, where p is the dimension of xExp. This is full set of SOIL scores for each variable
+#'        across all iterations.
+#' }
+#'  
 #' 
 #' @references
 #' \insertRef{ye2018sparsity}{courier}
