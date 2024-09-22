@@ -17,13 +17,13 @@
 #' \item 50Split: we use a 50/50 split for the training/test set.
 #' }
 #'
-#' This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{MAIL}
+#' This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{courier}
 #'
 #' @importFrom Rdpack reprompt
 #'
 #'
 #' @references
-#' \insertRef{fan2012variance}{MAIL}
+#' \insertRef{fan2012variance}{courier}
 #'
 #' @export
 

@@ -3,7 +3,7 @@
 \name{Lasso_CV_Sigma2Est}
 \alias{Lasso_CV_Sigma2Est}
 \title{\code{Lasso_CV_Sigma2Est} estimates the error variance in a high dimensional problem
-using the proposed method from \insertCite{reid2016study}{MAIL}.
+using the proposed method from \insertCite{reid2016study}{courier}.
 The best method in their simulation uses the RSS from the 
 LASSO coefficients, using 5 or 10-fold CV.}
 \usage{
@@ -16,10 +16,10 @@ Lasso_CV_Sigma2Est(XMat, yVec)
 }
 \description{
 \code{Lasso_CV_Sigma2Est} estimates the error variance in a high dimensional problem
-using the proposed method from \insertCite{reid2016study}{MAIL}.
+using the proposed method from \insertCite{reid2016study}{courier}.
 The best method in their simulation uses the RSS from the 
 LASSO coefficients, using 5 or 10-fold CV.
 }
 \references{
-\insertRef{reid2016study}{MAIL}
+\insertRef{reid2016study}{courier}
 }
