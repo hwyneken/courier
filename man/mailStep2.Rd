@@ -6,7 +6,7 @@
 \usage{
 mailStep2(
   numSelectionIter,
-  numModels,
+  maxModelSize,
   xExp,
   yExp,
   firstSOILWeightType,
@@ -14,6 +14,53 @@ mailStep2(
   verbose = FALSE
 )
 }
+\arguments{
+\item{numSelectionIter:}{Expects integer >= 1. The number of bootstrapped iterations of SOIL to run. Default = 10 for most algorithms.}
+
+\item{maxModelSize:}{The maximum model size.}
+
+\item{xExp:}{The X matrix of the exploratory set.}
+
+\item{yExp:}{The y vector of the exploratory set.}
+
+\item{firstSOILWeightType:}{The weight type choice for SOIL. This can be "AIC", "BIC" or "ARM".}
+
+\item{firstSOILPsi:}{The complexity penalty for SOIL. This can be any real value - the suggested value is 0.5.}
+
+\item{verbose:}{If TRUE, print the iteration step (for each iteration in numSelectionIter). (default == FALSE).}
+}
+\value{
+A list with the following elements:
+
+\itemize{
+  \item allSOILScores: The average SOIL importance score across numSelectionIter bootstrap iterations.
+  \item soilRes: If numSelectionIter == 1, then this is just the SOIL output object. If numSelectionIter > 1, this is a list of SOIL outputs for each 
+       bootstrap iteration. This does not affect the rest of the algorithm, it just allows for transparency and debugging.
+  \item soilScoreMat: A matrix of dimension numSelectionIter x p, where p is the dimension of xExp. This is full set of SOIL scores for each variable
+       across all iterations.
+}
+}
 \description{
-mailStep2
+\code{mailStep2} Runs the SOIL importance calculation for MAIL (2nd step).
+}
+\examples{
+
+This is "Step 2" in the MAIL algorithm, and the first step with any complexity.
+The purpose of this step is to get SOIL scores for all p variables.
+The simplest version of this step is to just run SOIL once with the specificed weight type and complexity penalty (psi level).
+
+By default, we chose to use the "union" option of SOIL, which means that for any given dataset, the SOIL scores are determined
+  by the union of the solution paths of Lasso, MCP and SCAD.
+Since these variable selection methods can be unstable, we wanted to add a step to add stability to the algorithm.
+Our strategy is (if the user chooses to do this), to run multiple iterations of SOIL with bootstrapped samples.
+
+If numSelectionIter > 1, then for each iteration, we first get bootstrapped versions of xExp and yExp, and then SOIL is run with these 
+   data inputs.
+The SOIL scores for each iteration are kept track of in soilScoreMat.
+The most important output is allSOILScores, which is the average SOIL score of each variable across all iterations.
+If numSelectionIter == 1, then we just use the original xExp and yExp.
+
+}
+\references{
+\insertRef{ye2018sparsity}{courier}
 }

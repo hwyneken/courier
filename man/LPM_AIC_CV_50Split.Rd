@@ -22,7 +22,7 @@ The best way to understand how the function is to break apart the name.
 \item 50Split: we use a 50/50 split for the exploratory / confirmation sets.
 }
 
-This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{MAIL}.
+This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{courier}.
 
 The first step is to split the data 50/50 into an exploratory 
    and confirmation set.
@@ -43,5 +43,5 @@ The final output of the function is the average MSE across training / test split
 \code{LPM_AIC_CV_50Split} estimates the error variance with the test set RMSE across 100 data splits
 }
 \references{
-\insertRef{fan2012variance}{MAIL}
+\insertRef{fan2012variance}{courier}
 }
