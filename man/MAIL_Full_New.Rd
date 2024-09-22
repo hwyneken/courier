@@ -45,7 +45,7 @@ The function uses the following arguments with MAIL:
 \examples{
 
 two main ideas to explain with an example
-\itemize {
+\itemize{
   \item how to run MAIL_Full
   \item how to run diagnostics for MAIL_Full - is it a reliable method for the current data
 }

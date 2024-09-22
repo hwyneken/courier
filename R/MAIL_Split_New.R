@@ -33,7 +33,7 @@
 #' @examples
 #'
 #' #' two main ideas to explain with an example
-#' \itemize {
+#' \itemize{
 #'   \item how to run MAIL_Split
 #'   \item how to run diagnostics for MAIL_Split - is it a reliable method for the current data
 #' }
