@@ -31,7 +31,9 @@
 #' 
 #' xCon <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
 #' 
-#' pracma::ref(xCon)
+#' X_Reduced <- pracma::rref(xCon)
+#' 
+#' X_Reduced
 #' 
 #' 
 #' @return A (possibly reduced) copy of selected set, with unidentifiable variables removed.

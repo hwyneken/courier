@@ -44,7 +44,9 @@ The final step of this function is to filter out all of the variables which do n
 
 xCon <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
 
-pracma::ref(xCon)
+X_Reduced <- pracma::rref(xCon)
+
+X_Reduced
 
 
 }
