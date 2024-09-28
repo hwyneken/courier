@@ -2,7 +2,7 @@
 % Please edit documentation in R/removeUnidentCols.R
 \name{removeUnidentCols}
 \alias{removeUnidentCols}
-\title{removUnidentCols}
+\title{removeUnidentCols}
 \usage{
 removeUnidentCols(selectedSet, xCon)
 }

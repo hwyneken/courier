@@ -1,4 +1,4 @@
-#' removUnidentCols
+#' removeUnidentCols
 #' 
 #' \code{removeUnidentCols} removes variables from the selected set whose full linear targets would not be identifiable in the confirmation data.
 #' 
