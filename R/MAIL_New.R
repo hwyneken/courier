@@ -79,18 +79,18 @@ MAIL_New = function(XMat,yVec,
   # We made this change because MAIL was only selecting 20 or so variables in the WEV
   #   example, even when the sample size was very large
   if (pExp >= (1/2)*NExp) {
-    numModels <- min(c(floor(NExp/2),
-                       floor(pExp/2)))
+    maxModelSize <- min(c(floor(NExp/2),
+                          floor(pExp/2)))
   }
   else {
-    numModels <- pExp
+    maxModelSize <- pExp
   }
   
   if (verbose == TRUE) {
     print("Step 2: Run First Model Average")
   }
   
-  mailStep2Res <- mailStep2(numSelectionIter,numModels,xExp,yExp,firstSOILWeightType,firstSOILPsi,verbose=FALSE)
+  mailStep2Res <- mailStep2(numSelectionIter,maxModelSize,xExp,yExp,firstSOILWeightType,firstSOILPsi,verbose=FALSE)
   allSOILScores <- mailStep2Res$allSOILScores
 
   
@@ -99,7 +99,7 @@ MAIL_New = function(XMat,yVec,
   if (verbose == TRUE) {
     print("Step 3: Select Variables for the Nested Candidate Set")
   }
-  mailStep3Res <- mailStep3(allSOILScores,numModels,xCon)
+  mailStep3Res <- mailStep3(allSOILScores,maxModelSize,xCon)
   selectedSet <- mailStep3Res$selectedSet
   numSelected <- mailStep3Res$numSelected
   
@@ -150,7 +150,7 @@ MAIL_New = function(XMat,yVec,
       print("Step 4: Create Candidate Set, and Smallest Model")
     }
     
-    mailStep4Res <- mailStep4(allSOILScores,selectedSet,xExp,yExp,smallestModelWeightType,smallestModelPsi,numModels)
+    mailStep4Res <- mailStep4(allSOILScores,selectedSet,xExp,yExp,smallestModelWeightType,smallestModelPsi,maxModelSize)
     candMat <- mailStep4Res$candMat
     origCandMat <- mailStep4Res$origCandMat
     minInd <- mailStep4Res$minInd
