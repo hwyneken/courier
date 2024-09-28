@@ -24,16 +24,14 @@
 #' The final step of this function is to filter out all of the variables which do not have a 
 #'  diagonal value of "1" in the RREF matrix, and return the filtered selectedSet.  
 #' 
+#' ```{r}
+#' X <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
+#' 
+#' X_RREF <- pracma::rref(X)
+#' print(X_RREF)
+#' ````
 #'  
 #' }
-#' 
-#' @examples
-#' 
-#' xCon <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
-#' 
-#' X_Reduced <- pracma::rref(xCon)
-#' 
-#' print(X_Reduced)
 #' 
 #' 
 #' @return A (possibly reduced) copy of selected set, with unidentifiable variables removed.
