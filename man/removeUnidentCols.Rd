@@ -30,23 +30,21 @@ Then, we check for linear dependencies.
 Specifically, we use the \code{pracma::rref} function, which returns a reduced row echelon matrix.
 
 If the data is p-dimensional, the RREF matrix is an upper-triangular matrix. 
-If there are linear dependencies amongst the columns, some of the diagonal entries will be zero.
-A small practical example will help to explain this.
-
-Suppose X <- cbind(c(1,1,0),c(0,0,1),c(1,1,1)).
-Therefore, the third column is just the sum of the first and second columns.
-The output from \code{pracma::rref(X)} is:
-
-rref(X)
-     [,1] [,2] [,3]
-[2,]    0    1    1
-[3,]    0    0    0
-
-The leading 1's on the diagonal indicate that we will keep the first two columns.
-However, the third column can be written as a sum of the first and second columns, 
- as shown by the value of the third column: (c(1,1,0)).
+If there are linear dependencies among the columns, some of the diagonal entries will be zero.
+A small practical example is given below.
+In that case, three variables were selected, and the third column depends on the first two.
+\code{pracma::rref} assigns leading 1's to the first and second columns, but not to the third column.
 The final step of this function is to filter out all of the variables which do not have a 
- diagonal value of "1" in the RREF matrix, and return the filtered selectedSet.
+ diagonal value of "1" in the RREF matrix, and return the filtered selectedSet.  
+
  
 }
+}
+\examples{
+
+xCon <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
+
+pracma::ref(xCon)
+
+
 }
