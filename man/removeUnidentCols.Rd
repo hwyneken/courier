@@ -21,28 +21,31 @@ A (possibly reduced) copy of selected set, with unidentifiable variables removed
 {
 This function removes two types of unidentifiable variables from selectedSet.
 The first type is easier to explain - simply put, we check for variables which have practically zero variance
- in the confirmation set.
+in the confirmation set.
 In the second step, we check for variables with linearly dependent relationships using the pracma package.
 
 We start the second step by selecting the columns in xCon that correspond to the remaining variables
- in selectedSet.
+in selectedSet.
 Then, we check for linear dependencies.
 Specifically, we use the \code{pracma::rref} function, which returns a reduced row echelon matrix.
 
-If the data is p-dimensional, the RREF matrix is an upper-triangular matrix. 
+If the data is p-dimensional, the RREF matrix is an upper-triangular matrix.
 If there are linear dependencies among the columns, some of the diagonal entries will be zero.
 A small practical example is given below.
 In that case, three variables were selected, and the third column depends on the first two.
 \code{pracma::rref} assigns leading 1's to the first and second columns, but not to the third column.
-The final step of this function is to filter out all of the variables which do not have a 
- diagonal value of "1" in the RREF matrix, and return the filtered selectedSet.  
+The final step of this function is to filter out all of the variables which do not have a
+diagonal value of "1" in the RREF matrix, and return the filtered selectedSet.
 
-```{r}
-X <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{X <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
 
 X_RREF <- pracma::rref(X)
 print(X_RREF)
-````
- 
+#>      [,1] [,2] [,3]
+#> [1,]    1    0    1
+#> [2,]    0    1    1
+#> [3,]    0    0    0
+}\if{html}{\out{</div>}}
+
 }
 }

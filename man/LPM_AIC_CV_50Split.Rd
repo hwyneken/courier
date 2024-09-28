@@ -24,19 +24,19 @@ The best way to understand how the function is to break apart the name.
 
 This is very similar to the refitted cross validation method from \insertCite{fan2012variance}{courier}.
 
-The first step is to split the data 50/50 into an exploratory 
-   and confirmation set.
-The best model (Largest Plausible Model) is chosen by first running SOIL on the 
- exploratory set, using AIC weights, a complexity penalty of zero and 
- the union of penalized regression solution paths.
+The first step is to split the data 50/50 into an exploratory
+and confirmation set.
+The best model (Largest Plausible Model) is chosen by first running SOIL on the
+exploratory set, using AIC weights, a complexity penalty of zero and
+the union of penalized regression solution paths.
 Then, we pick the LPM as the model with the largest weight in the model average,
- and extract the set of variables associated with this model.
- 
+and extract the set of variables associated with this model.
+
 In the estimation step, we turn to the confirmation data, and use @param numCV
-   training / test splits.
-Each training set has 90% of the confirmatory data.
+training / test splits.
+Each training set has 90\% of the confirmatory data.
 For each training set, we fit the largest plausible model identified
- in the previous step, and calculate MSE on the test set.
+in the previous step, and calculate MSE on the test set.
 The final output of the function is the average MSE across training / test splits.}
 }
 \description{

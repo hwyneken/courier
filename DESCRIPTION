@@ -15,3 +15,5 @@ RoxygenNote: 7.2.3
 Depends: SOIL, purrr
 Imports: Rdpack, SOIL, pracma, glmnet, purrr
 RdMacros: Rdpack
+Roxygen: list(markdown = TRUE)
+

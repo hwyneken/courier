@@ -17,9 +17,9 @@ mailStep3(allSOILScores, maxModelSize, xCon)
 A list with the following elements:
 
 \itemize{
-  \item selectedSet: This is the final set of selected variables to be used in the rest of the MAIL algorithm. 
-  \item origSelectedSet: This is the set of selected variables from the best SOIL scores only - i.e. before checking for dependent columns in xCon. This is for debugging purposes only.
-  \item numSelected: The number of variables in selectedSet.
+\item selectedSet: This is the final set of selected variables to be used in the rest of the MAIL algorithm.
+\item origSelectedSet: This is the set of selected variables from the best SOIL scores only - i.e. before checking for dependent columns in xCon. This is for debugging purposes only.
+\item numSelected: The number of variables in selectedSet.
 }
 }
 \description{
@@ -36,7 +36,7 @@ Therefore, we can represent each variable by its column index.
 If we were to select all variables, then selectedSet would be 1:p.
 Note, we only want to return the indices of the selected variables, not their column names.
 
-Unless nExp >= 2*p, we will not select all of the variables. 
+Unless nExp >= 2*p, we will not select all of the variables.
 We will only select variables whose average SOIL score is greater than a cutoff.
 For more details on how the SOIL scores are calculated, see \code{mailStep2}.
 The cutoff is determined by the SOIL score with rank maxModelSize.
@@ -56,7 +56,7 @@ The selected variables could have zero variance in xCon or could be linearly dep
 The function \code{removeUnidentCols} removes these variables from selectedSet.
 
 In principle, selectedSet could be empty, if all variables were unidentifiable in xCon.
-In that case, selectedSet is integer(0). 
+In that case, selectedSet is integer(0).
 The code for MAIL checks to see if length(selectedSet) > 0.
 If this condition is not met, the algorithm stops.
 }

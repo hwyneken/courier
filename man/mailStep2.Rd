@@ -33,11 +33,11 @@ mailStep2(
 A list with the following elements:
 
 \itemize{
-  \item allSOILScores: The average SOIL importance score across numSelectionIter bootstrap iterations.
-  \item soilRes: If numSelectionIter == 1, then this is just the SOIL output object. If numSelectionIter > 1, this is a list of SOIL outputs for each 
-       bootstrap iteration. This does not affect the rest of the algorithm, it just allows for transparency and debugging.
-  \item soilScoreMat: A matrix of dimension numSelectionIter x p, where p is the dimension of xExp. This is full set of SOIL scores for each variable
-       across all iterations.
+\item allSOILScores: The average SOIL importance score across numSelectionIter bootstrap iterations.
+\item soilRes: If numSelectionIter == 1, then this is just the SOIL output object. If numSelectionIter > 1, this is a list of SOIL outputs for each
+bootstrap iteration. This does not affect the rest of the algorithm, it just allows for transparency and debugging.
+\item soilScoreMat: A matrix of dimension numSelectionIter x p, where p is the dimension of xExp. This is full set of SOIL scores for each variable
+across all iterations.
 }
 }
 \description{
@@ -50,12 +50,12 @@ The purpose of this step is to get SOIL scores for all p variables.
 The simplest version of this step is to just run SOIL once with the specificed weight type and complexity penalty (psi level).
 
 By default, we chose to use the "union" option of SOIL, which means that for any given dataset, the SOIL scores are determined
-  by the union of the solution paths of Lasso, MCP and SCAD.
+by the union of the solution paths of Lasso, MCP and SCAD.
 Since these variable selection methods can be unstable, we wanted to add a step to add stability to the algorithm.
 Our strategy is (if the user chooses to do this), to run multiple iterations of SOIL with bootstrapped samples.
 
-If numSelectionIter > 1, then for each iteration, we first get bootstrapped versions of xExp and yExp, and then SOIL is run with these 
-   data inputs.
+If numSelectionIter > 1, then for each iteration, we first get bootstrapped versions of xExp and yExp, and then SOIL is run with these
+data inputs.
 The SOIL scores for each iteration are kept track of in soilScoreMat.
 The most important output is allSOILScores, which is the average SOIL score of each variable across all iterations.
 If numSelectionIter == 1, then we just use the original xExp and yExp.

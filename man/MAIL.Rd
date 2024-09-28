@@ -29,9 +29,9 @@ MAIL(
 
 \item{smallestModelWeightType}{Mandatory - can take values "AIC", "BIC" or "ARM"}
 
-\item{firstSOILPsi}{Mandatory - can take any value in [0,1]}
+\item{firstSOILPsi}{Mandatory - can take any value in \link{0,1}}
 
-\item{smallestModelPsi}{Mandatory - can take any value in [0,1]}
+\item{smallestModelPsi}{Mandatory - can take any value in \link{0,1}}
 
 \item{numSelectionIter}{Optional - defaults to 10, must be an integer >= 1}
 
