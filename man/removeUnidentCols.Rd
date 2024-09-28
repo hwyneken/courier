@@ -46,7 +46,7 @@ xCon <- cbind(c(1,1,0),c(0,0,1),c(1,1,1))
 
 X_Reduced <- pracma::rref(xCon)
 
-X_Reduced
+print(X_Reduced)
 
 
 }

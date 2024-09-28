@@ -33,7 +33,7 @@
 #' 
 #' X_Reduced <- pracma::rref(xCon)
 #' 
-#' X_Reduced
+#' print(X_Reduced)
 #' 
 #' 
 #' @return A (possibly reduced) copy of selected set, with unidentifiable variables removed.
